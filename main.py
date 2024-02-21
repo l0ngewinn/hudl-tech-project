@@ -12,6 +12,29 @@ def test_valid_user_valid_pass_login_button():
   navigate_to_login(driver)
 
   # wait for elements on login to render
+  render_clear_inputs(driver)
+
+  # inputs email into text box
+  email_input = driver.find_element(By.ID, "email")
+  email_input.send_keys(email)
+
+  # sleep for visibility
+  time.sleep(1.5)
+  # inputs password into text box
+  password_input = driver.find_element(By.ID, "password")
+  password_input.send_keys(password)
+
+  # sleep for visibility
+  time.sleep(1.5)
+  # clicks the login button
+  login_btn = driver.find_element(By.ID, "logIn")
+  login_btn.click()
+
+  time.sleep(3)
+  driver.quit()
+
+def render_clear_inputs(driver):
+  # wait for elements on login to render
   WebDriverWait(driver, 5).until(
   EC.presence_of_element_located((By.ID, "email"))
   )
@@ -26,20 +49,6 @@ def test_valid_user_valid_pass_login_button():
   driver.find_element(By.ID, "email").clear()
   driver.find_element(By.ID, "password").clear()
 
-  # inputs email into text box
-  email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys(email)
-
-  # inputs password into text box
-  password_input = driver.find_element(By.ID, "password")
-  password_input.send_keys(password)
-
-  # clicks the login button
-  login_btn = driver.find_element(By.ID, "logIn")
-  login_btn.click()
-  time.sleep(5)
-  driver.quit()
-
 def navigate_to_login(driver):
   # naviagets driver to login page
   driver.get("https://www.hudl.com/")
@@ -47,6 +56,8 @@ def navigate_to_login(driver):
   WebDriverWait(driver, 5).until(
     EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div/div[2]"))
   )
+  # sleep for visibility
+  time.sleep(1)
   # selects the dropdown
   login_dropdown = driver.find_element(By.XPATH, "/html/body/div[1]/header/div/div[2]")
   login_dropdown.click()
@@ -54,6 +65,8 @@ def navigate_to_login(driver):
   WebDriverWait(driver, 5).until(
     EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div/div[2]/div/div/div/div/a[1]"))
   )
+  # sleep for visibility
+  time.sleep(1)
   # selects the hudl login to navigate to login page
   hudl_login = driver.find_element(By.XPATH, "/html/body/div[1]/header/div/div[2]/div/div/div/div/a[1]")
   hudl_login.click()
