@@ -3,8 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import  WebDriverWait
 from selenium.webdriver.support import  expected_conditions as EC
 import time
-from tests.tests_email import run_tests_email
-from tests.tests_password import run_tests_password
+from tests.tests_credentials import run_tests_credentials
 from tests.tests_login_button import run_tests_login_button
 from tests.tests_enter_key import run_tests_enter_key
 
@@ -47,8 +46,7 @@ def navigate_to_login(driver):
   hudl_login.click()
 
 def main():
-  run_tests_email(navigate_to_login, render_clear_inputs)
-  run_tests_password(navigate_to_login, render_clear_inputs)
+  run_tests_credentials(navigate_to_login, render_clear_inputs)
   run_tests_login_button(navigate_to_login, render_clear_inputs)
   run_tests_enter_key(navigate_to_login, render_clear_inputs)
 
