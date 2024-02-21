@@ -3,70 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import  WebDriverWait
 from selenium.webdriver.support import  expected_conditions as EC
 import time
-# email and password are stored locally in a separate file (variables.py) ignored by git
-from variables import email, password
-
-def test_invalid_user_invalid_pass_login_button():
-  # tests for valid username and valid password using login button
-  driver = webdriver.Firefox()
-
-  #initial navigation to login page
-  navigate_to_login(driver)
-
-  # wait for elements on login to render
-  render_clear_inputs(driver)
-
-  # inputs email into text box
-  email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys("longewinn@gmail.com")
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # inputs password into text box
-  password_input = driver.find_element(By.ID, "password")
-  password_input.send_keys("password1")
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # clicks the login button
-  login_btn = driver.find_element(By.ID, "logIn")
-  login_btn.click()
-
-  time.sleep(3)
-  driver.quit()
-
-def test_valid_user_valid_pass_login_button():
-  # tests for valid username and valid password using login button
-  driver = webdriver.Firefox()
-
-  #initial navigation to login page
-  navigate_to_login(driver)
-
-  # wait for elements on login to render
-  render_clear_inputs(driver)
-
-  # inputs email into text box
-  email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys(email)
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # inputs password into text box
-  password_input = driver.find_element(By.ID, "password")
-  password_input.send_keys(password)
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # clicks the login button
-  login_btn = driver.find_element(By.ID, "logIn")
-  login_btn.click()
-
-  time.sleep(3)
-  driver.quit()
+from tests.tests_email import run_tests_email
+from tests.tests_password import run_tests_password
+from tests.tests_login_button import run_tests_login_button
+from tests.tests_enter_key import run_tests_enter_key
 
 def render_clear_inputs(driver):
   # wait for elements on login to render
@@ -107,8 +47,10 @@ def navigate_to_login(driver):
   hudl_login.click()
 
 def main():
-  test_valid_user_valid_pass_login_button()
-  test_invalid_user_invalid_pass_login_button()
+  run_tests_email(navigate_to_login, render_clear_inputs)
+  run_tests_password(navigate_to_login, render_clear_inputs)
+  run_tests_login_button(navigate_to_login, render_clear_inputs)
+  run_tests_enter_key(navigate_to_login, render_clear_inputs)
 
 if __name__ == "__main__":
     main()
