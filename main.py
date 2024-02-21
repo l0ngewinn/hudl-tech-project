@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import  WebDriverWait
 from selenium.webdriver.support import  expected_conditions as EC
 import time
-# email and password are stored locally in a separate file ignored by git
+# email and password are stored locally in a separate file (variables.py) ignored by git
 from variables import email, password
 
 def test_valid_user_valid_pass_login_button():
@@ -73,7 +73,6 @@ def navigate_to_login(driver):
 
 def main():
   test_valid_user_valid_pass_login_button()
-    
 
 if __name__ == "__main__":
     main()
