@@ -6,8 +6,6 @@ import time
 # email and password are stored locally in a separate file (variables.py) ignored by git
 from variables import email, password
 
-
-
 def test_blank_password(navigate_to_login, render_clear_inputs):
   # tests for valid username and valid password using login button
   driver = webdriver.Firefox()
@@ -47,6 +45,12 @@ def test_blank_password(navigate_to_login, render_clear_inputs):
   error_message_expected = "Please fill in all of the required fields"
   error_message_actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   assert  error_message_expected == error_message_actual, f"Expected '{error_message_expected}' but got '{error_message_actual}'"
+
+  # checks to see if the input box turns red
+  expected_color_password = "rgb(185, 24, 4)"
+  actual_color_password = str(password_input.value_of_css_property("color"))
+  assert expected_color_password == actual_color_password, "Password input did not turn red"
+
   print("test_blank_password() passed!")
 
   driver.quit()
@@ -87,6 +91,7 @@ def test_invalid_password(navigate_to_login, render_clear_inputs):
   expected = "We don't recognize that email and/or password"
   actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   assert expected == actual, f"Expected '{expected}' but got '{actual}'"
+
   print("test_invalid_password() passed!")
 
   driver.quit()
@@ -131,6 +136,12 @@ def test_blank_email(navigate_to_login, render_clear_inputs):
   error_message_expected = "Please fill in all of the required fields"
   error_message_actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   assert  error_message_expected == error_message_actual, f"Expected '{error_message_expected}' but got '{error_message_actual}'"
+
+  # checks to see if the input boxes turn red
+  expected_color_email = "rgb(185, 24, 4)"
+  actual_color_email = str(email_input.value_of_css_property("color"))
+  assert expected_color_email == actual_color_email, "Email input did not turn red"
+
   print("test_blank_email() passed!")
 
   driver.quit()
@@ -173,6 +184,7 @@ def test_invalid_email(navigate_to_login, render_clear_inputs):
   expected = "We don't recognize that email and/or password"
   actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   assert expected == actual, f"Expected '{expected}' but got '{actual}'"
+
   print("test_invalid_email() passed!")
 
   driver.quit()
@@ -223,6 +235,7 @@ def test_blank_credentials(navigate_to_login, render_clear_inputs):
   actual_color_password = str(password_input.value_of_css_property("color"))
   assert expected_color_email == actual_color_email, "Email input did not turn red"
   assert expected_color_password == actual_color_password, "Password input did not turn red"
+
   print("test_blank_credentials() passed!")
 
   driver.quit()
@@ -263,8 +276,8 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
   # test if the user succuessfully logged in, it will take the user to Hudl's home page
   expected_url = "https://www.hudl.com/home"
   actual_url = driver.current_url
-
   assert expected_url == actual_url, "Expected url: {} but got: {}".format(expected_url, actual_url)
+
   print("test_valid_credentials() passed!")
   driver.quit()
   return
