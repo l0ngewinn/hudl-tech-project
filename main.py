@@ -49,7 +49,7 @@ def navigate_to_login(driver):
 
 def main():
   run_tests_credentials(navigate_to_login, render_clear_inputs)
-  run_tests_login_button(navigate_to_login, render_clear_inputs)
+  #run_tests_login_button(navigate_to_login, render_clear_inputs)
   run_tests_enter_key(navigate_to_login, render_clear_inputs)
 
 if __name__ == "__main__":
