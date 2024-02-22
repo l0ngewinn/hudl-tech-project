@@ -96,7 +96,7 @@ def test_invalid_password(navigate_to_login, render_clear_inputs):
   login_btn.click()
 
   # wait for page to render error message
-  time.sleep(8)
+  time.sleep(5)
 
   # checks to see if the error message states unrecognizable email and password
   expected = "We don't recognize that email and/or password"
@@ -203,7 +203,7 @@ def test_invalid_email(navigate_to_login, render_clear_inputs):
   login_btn.click()
 
   # wait for page to render error message
-  time.sleep(8)
+  time.sleep(5)
 
   # checks to see if the error message states unrecognizable email and password
   expected = "We don't recognize that email and/or password"

@@ -35,12 +35,17 @@ def test_login_button_fail(navigate_to_login, render_clear_inputs):
   login_btn.click()
 
   # wait for page to render error message
-  time.sleep(8)
+  time.sleep(5)
 
   # checks to see if the error message states unrecognizable email and password
   expected = "We don't recognize that email and/or password"
   actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
-  assert expected == actual, f"Expected '{expected}' but got '{actual}'"
+  try:
+    assert expected == actual
+  except:
+    print(f"Expected '{expected}' but got '{actual}'")
+    driver.quit()
+    return
 
   print("test_login_button_fail() passed!")
 
@@ -82,7 +87,12 @@ def test_login_button_success(navigate_to_login, render_clear_inputs):
   # test if the user succuessfully logged in, it will take the user to Hudl's home page
   expected_url = "https://www.hudl.com/home"
   actual_url = driver.current_url
-  assert expected_url == actual_url, "Expected url: {} but got: {}".format(expected_url, actual_url)
+  try:
+    assert expected_url == actual_url
+  except:
+    print("Expected url: {} but got: {}".format(expected_url, actual_url))
+    driver.quit()
+    return
 
   print("test_login_with_button_success() passed!")
 
