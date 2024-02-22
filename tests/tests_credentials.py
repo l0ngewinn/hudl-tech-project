@@ -316,10 +316,10 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
   return
 
 def run_tests_credentials(navigate_to_login, render_clear_inputs):
-  # test_valid_credentials(navigate_to_login, render_clear_inputs)
-  # test_invalid_email_script(navigate_to_login, render_clear_inputs)
-  # test_blank_email(navigate_to_login, render_clear_inputs)
-  # test_invalid_password(navigate_to_login, render_clear_inputs)
-  # test_blank_password(navigate_to_login, render_clear_inputs)
+  test_valid_credentials(navigate_to_login, render_clear_inputs)
+  test_invalid_email_script(navigate_to_login, render_clear_inputs)
+  test_blank_email(navigate_to_login, render_clear_inputs)
+  test_invalid_password(navigate_to_login, render_clear_inputs)
+  test_blank_password(navigate_to_login, render_clear_inputs)
   test_password_change(navigate_to_login, render_clear_inputs)
   return
