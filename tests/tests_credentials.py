@@ -37,6 +37,18 @@ def test_blank_password(navigate_to_login, render_clear_inputs):
   login_btn.click()
 
   time.sleep(2)
+
+  # checks to see if blank text boxes bring up the required message
+  required_message = "Required"
+  required_message_password = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/form/div[3]/p").text
+  assert required_message_password == required_message, "Password input does not warn that it is required"
+
+  # chekcs to see if the error message comes up
+  error_message_expected = "Please fill in all of the required fields"
+  error_message_actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
+  assert  error_message_expected == error_message_actual, f"Expected '{error_message_expected}' but got '{error_message_actual}'"
+  print("test_blank_password() passed!")
+
   driver.quit()
   return
 
@@ -109,6 +121,18 @@ def test_blank_email(navigate_to_login, render_clear_inputs):
   login_btn.click()
 
   time.sleep(2)
+
+  # checks to see if blank text boxes bring up the required message
+  required_message_expected = "Required"
+  required_message_actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/form/div[1]/p[1]").text
+  assert required_message_actual == required_message_expected, "Email input does not warn that it is required"
+
+  # checks to see if the error message comes up
+  error_message_expected = "Please fill in all of the required fields"
+  error_message_actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
+  assert  error_message_expected == error_message_actual, f"Expected '{error_message_expected}' but got '{error_message_actual}'"
+  print("test_blank_email() passed!")
+
   driver.quit()
   return
 
@@ -247,10 +271,9 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
 
 def run_tests_credentials(navigate_to_login, render_clear_inputs):
   # test_valid_credentials(navigate_to_login, render_clear_inputs)
-  # test_invalid_credentials(navigate_to_login, render_clear_inputs)
   # test_blank_credentials(navigate_to_login, render_clear_inputs)
-  test_invalid_email(navigate_to_login, render_clear_inputs)
-  # test_blank_email(navigate_to_login, render_clear_inputs)
-  test_invalid_password(navigate_to_login, render_clear_inputs)
-  # test_blank_password(navigate_to_login, render_clear_inputs)
+  # test_invalid_email(navigate_to_login, render_clear_inputs)
+  test_blank_email(navigate_to_login, render_clear_inputs)
+  # test_invalid_password(navigate_to_login, render_clear_inputs)
+  test_blank_password(navigate_to_login, render_clear_inputs)
   return
