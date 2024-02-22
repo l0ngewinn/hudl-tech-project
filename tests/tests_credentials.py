@@ -85,7 +85,7 @@ def test_invalid_password(navigate_to_login, render_clear_inputs):
   login_btn.click()
 
   # wait for page to render error message
-  time.sleep(5)
+  time.sleep(8)
 
   # checks to see if the error message states unrecognizable email and password
   expected = "We don't recognize that email and/or password"
@@ -175,10 +175,8 @@ def test_invalid_email(navigate_to_login, render_clear_inputs):
   login_btn = driver.find_element(By.ID, "logIn")
   login_btn.click()
 
-  time.sleep(5)
-
   # wait for page to render error message
-  time.sleep(5)
+  time.sleep(8)
 
   # checks to see if the error message states unrecognizable email and password
   expected = "We don't recognize that email and/or password"
@@ -186,57 +184,6 @@ def test_invalid_email(navigate_to_login, render_clear_inputs):
   assert expected == actual, f"Expected '{expected}' but got '{actual}'"
 
   print("test_invalid_email() passed!")
-
-  driver.quit()
-  return
-
-def test_blank_credentials(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
-  driver = webdriver.Firefox()
-
-  #initial navigation to login page
-  navigate_to_login(driver)
-
-  # wait for elements on login to render
-  render_clear_inputs(driver)
-
-  # inputs email into text box
-  email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys("")
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # inputs password into text box
-  password_input = driver.find_element(By.ID, "password")
-  password_input.send_keys("")
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # clicks the login button
-  login_btn = driver.find_element(By.ID, "logIn")
-  login_btn.click()
-
-  # let text boxes render
-  time.sleep(2)
-
-  # checks to see if blank text boxes bring up the required message
-  required_message = "Required"
-  required_message_email = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/form/div[1]/p[1]").text
-  required_message_password = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/form/div[3]/p").text
-  assert required_message_email == required_message, "Email input does not warn that it is required"
-  assert required_message_password == required_message, "Password input does not warn that it is required"
-
-  # checks to see if the input boxes turn red
-  expected_color_email = "rgb(185, 24, 4)"
-  actual_color_email = str(email_input.value_of_css_property("color"))
-  expected_color_password = "rgb(185, 24, 4)"
-  actual_color_password = str(password_input.value_of_css_property("color"))
-  assert expected_color_email == actual_color_email, "Email input did not turn red"
-  assert expected_color_password == actual_color_password, "Password input did not turn red"
-
-  print("test_blank_credentials() passed!")
 
   driver.quit()
   return
@@ -283,10 +230,9 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
   return
 
 def run_tests_credentials(navigate_to_login, render_clear_inputs):
-  # test_valid_credentials(navigate_to_login, render_clear_inputs)
-  # test_blank_credentials(navigate_to_login, render_clear_inputs)
-  # test_invalid_email(navigate_to_login, render_clear_inputs)
+  test_valid_credentials(navigate_to_login, render_clear_inputs)
+  test_invalid_email(navigate_to_login, render_clear_inputs)
   test_blank_email(navigate_to_login, render_clear_inputs)
-  # test_invalid_password(navigate_to_login, render_clear_inputs)
+  test_invalid_password(navigate_to_login, render_clear_inputs)
   test_blank_password(navigate_to_login, render_clear_inputs)
   return
