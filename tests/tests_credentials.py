@@ -68,7 +68,15 @@ def test_invalid_password(navigate_to_login, render_clear_inputs):
   login_btn = driver.find_element(By.ID, "logIn")
   login_btn.click()
 
-  time.sleep(2)
+  # wait for page to render error message
+  time.sleep(5)
+
+  # checks to see if the error message states unrecognizable email and password
+  expected = "We don't recognize that email and/or password"
+  actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
+  assert expected == actual, f"Expected '{expected}' but got '{actual}'"
+  print("test_invalid_password() passed!")
+
   driver.quit()
   return
 
@@ -132,7 +140,17 @@ def test_invalid_email(navigate_to_login, render_clear_inputs):
   login_btn = driver.find_element(By.ID, "logIn")
   login_btn.click()
 
-  time.sleep(2)
+  time.sleep(5)
+
+  # wait for page to render error message
+  time.sleep(5)
+
+  # checks to see if the error message states unrecognizable email and password
+  expected = "We don't recognize that email and/or password"
+  actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
+  assert expected == actual, f"Expected '{expected}' but got '{actual}'"
+  print("test_invalid_email() passed!")
+
   driver.quit()
   return
 
@@ -186,46 +204,6 @@ def test_blank_credentials(navigate_to_login, render_clear_inputs):
   driver.quit()
   return
 
-def test_invalid_credentials(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
-  driver = webdriver.Firefox()
-
-  #initial navigation to login page
-  navigate_to_login(driver)
-
-  # wait for elements on login to render
-  render_clear_inputs(driver)
-
-  # inputs email into text box
-  email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys("longewinn@gmail.com")
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # inputs password into text box
-  password_input = driver.find_element(By.ID, "password")
-  password_input.send_keys("Password1234")
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # clicks the login button
-  login_btn = driver.find_element(By.ID, "logIn")
-  login_btn.click()
-
-  # wait for page to render error message
-  time.sleep(5)
-
-  # checks to see if the error message states unrecognizable email and password
-  expected = "We don't recognize that email and/or password"
-  actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
-  assert expected == actual, f"Expected '{expected}' but got '{actual}'"
-  print("test_invalid_credentials() passed!")
-
-  driver.quit()
-  return
-
 def test_valid_credentials(navigate_to_login, render_clear_inputs):
   # tests for valid username and valid password using login button
   driver = webdriver.Firefox()
@@ -268,11 +246,11 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
   return
 
 def run_tests_credentials(navigate_to_login, render_clear_inputs):
-  test_valid_credentials(navigate_to_login, render_clear_inputs)
-  test_invalid_credentials(navigate_to_login, render_clear_inputs)
-  test_blank_credentials(navigate_to_login, render_clear_inputs)
-  # test_invalid_email(navigate_to_login, render_clear_inputs)
+  # test_valid_credentials(navigate_to_login, render_clear_inputs)
+  # test_invalid_credentials(navigate_to_login, render_clear_inputs)
+  # test_blank_credentials(navigate_to_login, render_clear_inputs)
+  test_invalid_email(navigate_to_login, render_clear_inputs)
   # test_blank_email(navigate_to_login, render_clear_inputs)
-  # test_invalid_password(navigate_to_login, render_clear_inputs)
+  test_invalid_password(navigate_to_login, render_clear_inputs)
   # test_blank_password(navigate_to_login, render_clear_inputs)
   return
