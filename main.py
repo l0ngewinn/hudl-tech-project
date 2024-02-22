@@ -8,7 +8,7 @@ from tests.tests_login_button import run_tests_login_button
 from tests.tests_enter_key import run_tests_enter_key
 
 def render_clear_inputs(driver):
-  # wait for elements on login to render
+  # wait for elements on login modal to render
   WebDriverWait(driver, 5).until(
   EC.presence_of_element_located((By.ID, "email"))
   )
@@ -22,9 +22,10 @@ def render_clear_inputs(driver):
   # makes sure text boxes are cleared for test
   driver.find_element(By.ID, "email").clear()
   driver.find_element(By.ID, "password").clear()
+  return
 
 def navigate_to_login(driver):
-  # naviagets driver to login page
+  # naviagates driver to login page
   driver.get("https://www.hudl.com/")
   # wait for login dropdown to render
   WebDriverWait(driver, 5).until(
@@ -44,6 +45,7 @@ def navigate_to_login(driver):
   # selects the hudl login to navigate to login page
   hudl_login = driver.find_element(By.XPATH, "/html/body/div[1]/header/div/div[2]/div/div/div/div/a[1]")
   hudl_login.click()
+  return
 
 def main():
   run_tests_credentials(navigate_to_login, render_clear_inputs)
