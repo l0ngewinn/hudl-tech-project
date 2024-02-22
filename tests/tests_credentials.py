@@ -256,7 +256,7 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
 
   # wait for page to render before grabbing url
   WebDriverWait(driver, 5).until(
-  EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/div[1]/nav[1]"))
+    EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/div[1]/nav[1]"))
   )
   # test if the user succuessfully logged in, it will take the user to Hudl's home page
   expected_url = "https://www.hudl.com/home"
