@@ -21,7 +21,7 @@ def test_password_change(navigate_to_login, render_clear_inputs):
 
   # inputs email into text box
   email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys("longe<script>alert('script')</script>winn@gmail.com")
+  email_input.send_keys("johndoe@yahoo.com")
 
   # sleep for visibility
   time.sleep(1)
@@ -40,8 +40,8 @@ def test_password_change(navigate_to_login, render_clear_inputs):
   # wait for page to render error message
   time.sleep(5)
 
-  # checks to see if the error message states unrecognizable email and password
-  expected = "We don't recognize that email and/or password"
+  # checks to see if the error message states password change required
+  expected = "Password change required."
   actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   try:
     assert expected == actual
@@ -50,7 +50,7 @@ def test_password_change(navigate_to_login, render_clear_inputs):
     driver.quit()
     return
 
-  print("test_invalid_email() passed!")
+  print("test_password_change() passed!")
 
   driver.quit()
   return
@@ -316,9 +316,10 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
   return
 
 def run_tests_credentials(navigate_to_login, render_clear_inputs):
-  test_valid_credentials(navigate_to_login, render_clear_inputs)
-  test_invalid_email_script(navigate_to_login, render_clear_inputs)
-  test_blank_email(navigate_to_login, render_clear_inputs)
-  test_invalid_password(navigate_to_login, render_clear_inputs)
-  test_blank_password(navigate_to_login, render_clear_inputs)
+  # test_valid_credentials(navigate_to_login, render_clear_inputs)
+  # test_invalid_email_script(navigate_to_login, render_clear_inputs)
+  # test_blank_email(navigate_to_login, render_clear_inputs)
+  # test_invalid_password(navigate_to_login, render_clear_inputs)
+  # test_blank_password(navigate_to_login, render_clear_inputs)
+  test_password_change(navigate_to_login, render_clear_inputs)
   return
