@@ -1,11 +1,14 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import  WebDriverWait
+
 from selenium.webdriver.support import  expected_conditions as EC
+from selenium.webdriver.support.ui import  WebDriverWait
+
 import time
+
 from tests.tests_credentials import run_tests_credentials
 from tests.tests_login_button import run_tests_login_button
 from tests.tests_enter_key import run_tests_enter_key
+from tests.tests_tab_key import run_tests_tab_key
 
 def render_clear_inputs(driver):
   # wait for elements on login modal to render
@@ -50,7 +53,8 @@ def navigate_to_login(driver):
 def main():
   # run_tests_credentials(navigate_to_login, render_clear_inputs)
   # run_tests_login_button(navigate_to_login, render_clear_inputs)
-  run_tests_enter_key(navigate_to_login, render_clear_inputs)
+  # run_tests_enter_key(navigate_to_login, render_clear_inputs)
+  run_tests_tab_key(navigate_to_login, render_clear_inputs)
 
 if __name__ == "__main__":
     main()

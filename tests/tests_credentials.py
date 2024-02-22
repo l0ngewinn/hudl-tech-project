@@ -1,10 +1,59 @@
 from selenium import webdriver
+
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import  WebDriverWait
+
 from selenium.webdriver.support import  expected_conditions as EC
+from selenium.webdriver.support.ui import  WebDriverWait
+
 import time
 # email and password are stored locally in a separate file (variables.py) ignored by git
 from variables import email, password
+
+def test_password_change(navigate_to_login, render_clear_inputs):
+    # tests for valid username and valid password using login button
+  driver = webdriver.Firefox()
+
+  #initial navigation to login page
+  navigate_to_login(driver)
+
+  # wait for elements on login to render
+  render_clear_inputs(driver)
+
+  # inputs email into text box
+  email_input = driver.find_element(By.ID, "email")
+  email_input.send_keys("longe<script>alert('script')</script>winn@gmail.com")
+
+  # sleep for visibility
+  time.sleep(1)
+
+  # inputs password into text box
+  password_input = driver.find_element(By.ID, "password")
+  password_input.send_keys(password)
+
+  # sleep for visibility
+  time.sleep(1)
+
+  # clicks the login button
+  login_btn = driver.find_element(By.ID, "logIn")
+  login_btn.click()
+
+  # wait for page to render error message
+  time.sleep(5)
+
+  # checks to see if the error message states unrecognizable email and password
+  expected = "We don't recognize that email and/or password"
+  actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
+  try:
+    assert expected == actual
+  except:
+    print(f"Expected '{expected}' but got '{actual}'")
+    driver.quit()
+    return
+
+  print("test_invalid_email() passed!")
+
+  driver.quit()
+  return
 
 def test_blank_password(navigate_to_login, render_clear_inputs):
   # tests for valid username and valid password using login button
@@ -174,7 +223,7 @@ def test_blank_email(navigate_to_login, render_clear_inputs):
   driver.quit()
   return
 
-def test_invalid_email(navigate_to_login, render_clear_inputs):
+def test_invalid_email_script(navigate_to_login, render_clear_inputs):
   # tests for valid username and valid password using login button
   driver = webdriver.Firefox()
 
@@ -186,7 +235,7 @@ def test_invalid_email(navigate_to_login, render_clear_inputs):
 
   # inputs email into text box
   email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys("longewinn@gmail.com")
+  email_input.send_keys("longe<script>alert('script')</script>winn@gmail.com")
 
   # sleep for visibility
   time.sleep(1)
@@ -268,7 +317,7 @@ def test_valid_credentials(navigate_to_login, render_clear_inputs):
 
 def run_tests_credentials(navigate_to_login, render_clear_inputs):
   test_valid_credentials(navigate_to_login, render_clear_inputs)
-  test_invalid_email(navigate_to_login, render_clear_inputs)
+  test_invalid_email_script(navigate_to_login, render_clear_inputs)
   test_blank_email(navigate_to_login, render_clear_inputs)
   test_invalid_password(navigate_to_login, render_clear_inputs)
   test_blank_password(navigate_to_login, render_clear_inputs)

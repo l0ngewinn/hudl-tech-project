@@ -2,6 +2,7 @@ from selenium import webdriver
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 from selenium.webdriver.support import  expected_conditions as EC
 from selenium.webdriver.support.ui import  WebDriverWait
@@ -10,7 +11,7 @@ import time
 # email and password are stored locally in a separate file (variables.py) ignored by git
 from variables import email, password
 
-def test_enter_fail(navigate_to_login, render_clear_inputs):
+def test_tab_fail(navigate_to_login, render_clear_inputs):
   # tests for valid username and valid password using login button
   driver = webdriver.Firefox()
 
@@ -20,22 +21,21 @@ def test_enter_fail(navigate_to_login, render_clear_inputs):
   # wait for elements on login to render and clears text boxes
   render_clear_inputs(driver)
 
-  # inputs email into text box
+  # clicks on the email text box
   email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys("longewinn@gmail.com")
+  email_input.click()
 
-  # sleep for visibility
+  #sleep for visibility
   time.sleep(1)
 
-  # inputs password into text box
-  password_input = driver.find_element(By.ID, "password")
-  password_input.send_keys("Password1")
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # press enter key
-  password_input.send_keys(Keys.RETURN)
+  # inputs email into text box, tabs, inputs password, and clicks enter
+  # .send_keys("johndoe@yahoo.com")\
+  ActionChains(driver)\
+  .send_keys("email@gmail.com")\
+  .send_keys(Keys.TAB)\
+  .send_keys("Password1")\
+  .send_keys(Keys.RETURN)\
+  .perform()
 
   # wait for page to render error message
   time.sleep(5)
@@ -50,12 +50,12 @@ def test_enter_fail(navigate_to_login, render_clear_inputs):
     driver.quit()
     return
 
-  print("test_enter_fail() passed!")
+  print("test_tab_fail() passed!")
 
   driver.quit()
   return
 
-def test_enter_success(navigate_to_login, render_clear_inputs):
+def test_tab_success(navigate_to_login, render_clear_inputs):
   # tests for valid username and valid password using login button
   driver = webdriver.Firefox()
 
@@ -65,22 +65,23 @@ def test_enter_success(navigate_to_login, render_clear_inputs):
   # wait for elements on login to render and clears text boxes
   render_clear_inputs(driver)
 
-  # inputs email into text box
+  # clicks on the email text box
   email_input = driver.find_element(By.ID, "email")
-  email_input.send_keys(email)
+  email_input.click()
+
+  #sleep for visibility
+  time.sleep(1)
+
+  # inputs email into text box, tabs, inputs password, and clicks enter
+  ActionChains(driver)\
+  .send_keys(email)\
+  .send_keys(Keys.TAB)\
+  .send_keys(password)\
+  .send_keys(Keys.RETURN)\
+  .perform()
 
   # sleep for visibility
   time.sleep(1)
-
-  # inputs password into text box
-  password_input = driver.find_element(By.ID, "password")
-  password_input.send_keys(password)
-
-  # sleep for visibility
-  time.sleep(1)
-
-  # press enter key
-  password_input.send_keys(Keys.RETURN)
 
   # wait for page to render before grabbing url
   WebDriverWait(driver, 5).until(
@@ -96,12 +97,12 @@ def test_enter_success(navigate_to_login, render_clear_inputs):
     driver.quit()
     return
 
-  print("test_enter_success() passed!")
+  print("test_tab_success() passed!")
 
   driver.quit()
   return
 
-def run_tests_enter_key(navigate_to_login, render_clear_inputs):
-  test_enter_success(navigate_to_login, render_clear_inputs)
-  test_enter_fail(navigate_to_login, render_clear_inputs)
+def run_tests_tab_key(navigate_to_login, render_clear_inputs):
+  test_tab_success(navigate_to_login, render_clear_inputs)
+  test_tab_fail(navigate_to_login, render_clear_inputs)
   return
