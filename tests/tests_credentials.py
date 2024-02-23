@@ -245,7 +245,7 @@ def test_blank_email(navigate_to_login, render_clear_inputs):
   return
 
 def test_invalid_email_script_and_format(navigate_to_login, render_clear_inputs):
-  # tests if the field will accept an invalid email and if it will run a script if given
+  # tests if the field will accept an invalid email, if it will run a script if given,, and it does not follow standard email format
   driver = webdriver.Firefox()
 
   #initial navigation to login page
