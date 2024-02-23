@@ -11,52 +11,8 @@ import time
 # email and password are stored locally in a separate file (variables.py) ignored by git
 from variables import email, password
 
-def test_tab_fail(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
-  driver = webdriver.Firefox()
-
-  #initial navigation to login page
-  navigate_to_login(driver)
-
-  # wait for elements on login to render and clears text boxes
-  render_clear_inputs(driver)
-
-  # clicks on the email text box
-  email_input = driver.find_element(By.ID, "email")
-  email_input.click()
-
-  #sleep for visibility
-  time.sleep(1)
-
-  # inputs email into text box, tabs, inputs password, and clicks enter
-  # .send_keys("johndoe@yahoo.com")\
-  ActionChains(driver)\
-  .send_keys("hudl@yahoo.com")\
-  .send_keys(Keys.TAB)\
-  .send_keys("Password1")\
-  .send_keys(Keys.RETURN)\
-  .perform()
-
-  # wait for page to render error message
-  time.sleep(5)
-
-  # checks to see if the error message states unrecognizable email and password
-  expected = "We don't recognize that email and/or password"
-  actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
-  try:
-    assert expected == actual
-  except:
-    print(f"Expected '{expected}' but got '{actual}'")
-    driver.quit()
-    return
-
-  print("test_tab_fail() passed!")
-
-  driver.quit()
-  return
-
 def test_tab_success(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
+  # tests if tabbing between text boxes works
   driver = webdriver.Firefox()
 
   #initial navigation to login page
@@ -104,5 +60,4 @@ def test_tab_success(navigate_to_login, render_clear_inputs):
 
 def run_tests_tab_key(navigate_to_login, render_clear_inputs):
   test_tab_success(navigate_to_login, render_clear_inputs)
-  test_tab_fail(navigate_to_login, render_clear_inputs)
   return

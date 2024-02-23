@@ -28,7 +28,7 @@ def render_clear_inputs(driver):
   return
 
 def navigate_to_login(driver):
-  # naviagates driver to login page
+  # navigates driver to login page
   driver.get("https://www.hudl.com/")
   # wait for login dropdown to render
   WebDriverWait(driver, 5).until(

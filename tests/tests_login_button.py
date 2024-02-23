@@ -10,7 +10,7 @@ import time
 from variables import email, password
 
 def test_login_button_fail(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
+  # tests if login button works with incorrect credentials
   driver = webdriver.Firefox()
 
   #initial navigation to login page
@@ -56,7 +56,7 @@ def test_login_button_fail(navigate_to_login, render_clear_inputs):
   return
 
 def test_login_button_success(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
+  # tests if login button works with valid credentials
   driver = webdriver.Firefox()
 
   #initial navigation to login page

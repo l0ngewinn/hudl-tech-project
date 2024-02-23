@@ -10,7 +10,7 @@ import time
 from variables import email, password
 
 def test_password_change(navigate_to_login, render_clear_inputs):
-    # tests for valid username and valid password using login button
+  # tests if password change warning comes up
   driver = webdriver.Firefox()
 
   #initial navigation to login page
@@ -56,7 +56,7 @@ def test_password_change(navigate_to_login, render_clear_inputs):
   return
 
 def test_blank_password(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
+  # tests if a blank password is caught, the field turns red, and the correct warning message appears
   driver = webdriver.Firefox()
 
   #initial navigation to login page
@@ -93,7 +93,7 @@ def test_blank_password(navigate_to_login, render_clear_inputs):
   except:
     print("Password input does not warn that it is required")
 
-  # chekcs to see if the error message comes up
+  # chekcs to see if the correct error message comes up
   error_message_expected = "Please fill in all of the required fields"
   error_message_actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   try:
@@ -117,7 +117,7 @@ def test_blank_password(navigate_to_login, render_clear_inputs):
   return
 
 def test_invalid_password(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
+  # tests for warning message for an invalid password
   driver = webdriver.Firefox()
 
   #initial navigation to login page
@@ -163,7 +163,7 @@ def test_invalid_password(navigate_to_login, render_clear_inputs):
   return
 
 def test_blank_email(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
+  # tests if a blank email is caught, an error message pops up, and the field turns red
   driver = webdriver.Firefox()
 
   #initial navigation to login page
@@ -200,7 +200,7 @@ def test_blank_email(navigate_to_login, render_clear_inputs):
   except:
     print("Email input does not warn that it is required")
 
-  # checks to see if the error message comes up
+  # checks to see if the correct error message comes up
   error_message_expected = "Please fill in all of the required fields"
   error_message_actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   try:
@@ -224,7 +224,7 @@ def test_blank_email(navigate_to_login, render_clear_inputs):
   return
 
 def test_invalid_email_script(navigate_to_login, render_clear_inputs):
-  # tests for valid username and valid password using login button
+  # tests if the field will accept an invalid email and if it will run a script if given
   driver = webdriver.Firefox()
 
   #initial navigation to login page
@@ -254,7 +254,7 @@ def test_invalid_email_script(navigate_to_login, render_clear_inputs):
   # wait for page to render error message
   time.sleep(5)
 
-  # checks to see if the error message states unrecognizable email and password
+  # checks to see if the error message states unrecognizable email 
   expected = "We don't recognize that email and/or password"
   actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
   try:
