@@ -9,6 +9,56 @@ import time
 # email and password are stored locally in a separate file (variables.py) ignored by git
 from variables import email, password
 
+def test_repeated_submission(navigate_to_login, render_clear_inputs):
+  # tests for warning message for repeatedly submitting incorrect credentials
+  driver = webdriver.Firefox()
+
+  #initial navigation to login page
+  navigate_to_login(driver)
+
+  # wait for elements on login to render
+  render_clear_inputs(driver)
+
+  # inputs email into text box
+  email_input = driver.find_element(By.ID, "email")
+  email_input.send_keys("lnguyen57@huskers.unl.edu")
+
+  # sleep for visibility
+  time.sleep(1)
+
+  # inputs password into text box
+  password_input = driver.find_element(By.ID, "password")
+  password_input.send_keys("password1")
+
+  # sleep for visibility
+  time.sleep(1)
+
+  # clicks the login button
+  login_btn = driver.find_element(By.ID, "logIn")
+  for i in range(8):
+    print(i)
+    time.sleep(2)
+    login_btn.click()
+    ++i
+
+  # wait for page to render error message
+  time.sleep(5)
+
+  # checks to see if the error message states unrecognizable email and password
+  expected = "Too many logins with the same username or email."
+  actual = driver.find_element(By.XPATH, "/html/body/div/div/div/div[1]/div/div[2]/p").text
+  try:
+    assert expected == actual
+  except:
+    print(f"Expected '{expected}' but got '{actual}'")
+    driver.quit()
+    return
+
+  print("test_repeated_submission() passed!")
+
+  driver.quit()
+  return
+
 def test_password_change(navigate_to_login, render_clear_inputs):
   # tests if password change warning comes up
   driver = webdriver.Firefox()
@@ -369,4 +419,5 @@ def run_tests_credentials(navigate_to_login, render_clear_inputs):
   test_invalid_password(navigate_to_login, render_clear_inputs)
   test_blank_password(navigate_to_login, render_clear_inputs)
   test_password_change(navigate_to_login, render_clear_inputs)
+  test_repeated_submission(navigate_to_login, render_clear_inputs)
   return
