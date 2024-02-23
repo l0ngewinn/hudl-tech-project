@@ -36,7 +36,6 @@ def test_repeated_submission(navigate_to_login, render_clear_inputs):
   # clicks the login button
   login_btn = driver.find_element(By.ID, "logIn")
   for i in range(8):
-    print(i)
     time.sleep(2)
     login_btn.click()
     ++i
