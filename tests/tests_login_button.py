@@ -23,15 +23,9 @@ def test_login_button_fail(navigate_to_login, render_clear_inputs):
   email_input = driver.find_element(By.ID, "email")
   email_input.send_keys("longewinn@gmail.com")
 
-  # sleep for visibility
-  time.sleep(1)
-
   # inputs password into text box
   password_input = driver.find_element(By.ID, "password")
   password_input.send_keys("Password1")
-
-  # sleep for visibility
-  time.sleep(1)
 
   # clicks the login button
   login_btn = driver.find_element(By.ID, "logIn")
@@ -69,15 +63,9 @@ def test_login_button_success(navigate_to_login, render_clear_inputs):
   email_input = driver.find_element(By.ID, "email")
   email_input.send_keys(email)
 
-  # sleep for visibility
-  time.sleep(1)
-
   # inputs password into text box
   password_input = driver.find_element(By.ID, "password")
   password_input.send_keys(password)
-
-  # sleep for visibility
-  time.sleep(1)
 
   # clicks the login button
   login_btn = driver.find_element(By.ID, "logIn")

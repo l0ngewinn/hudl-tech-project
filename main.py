@@ -30,21 +30,20 @@ def render_clear_inputs(driver):
 def navigate_to_login(driver):
   # navigates driver to login page
   driver.get("https://www.hudl.com/")
+
   # wait for login dropdown to render
   WebDriverWait(driver, 5).until(
     EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div/div[2]"))
   )
-  # sleep for visibility
-  time.sleep(0.5)
   # selects the dropdown
   login_dropdown = driver.find_element(By.XPATH, "/html/body/div[1]/header/div/div[2]")
   login_dropdown.click()
+
   # wait for element hudl login button to render
   WebDriverWait(driver, 5).until(
     EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div/div[2]/div/div/div/div/a[1]"))
   )
-  # sleep for visibility
-  time.sleep(0.5)
+  
   # selects the hudl login to navigate to login page
   hudl_login = driver.find_element(By.XPATH, "/html/body/div[1]/header/div/div[2]/div/div/div/div/a[1]")
   hudl_login.click()

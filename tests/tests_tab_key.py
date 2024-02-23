@@ -25,9 +25,6 @@ def test_tab_success(navigate_to_login, render_clear_inputs):
   email_input = driver.find_element(By.ID, "email")
   email_input.click()
 
-  #sleep for visibility
-  time.sleep(1)
-
   # inputs email into text box, tabs, inputs password, and clicks enter
   ActionChains(driver)\
   .send_keys(email)\
@@ -35,9 +32,6 @@ def test_tab_success(navigate_to_login, render_clear_inputs):
   .send_keys(password)\
   .send_keys(Keys.RETURN)\
   .perform()
-
-  # sleep for visibility
-  time.sleep(1)
 
   # wait for page to render before grabbing url
   WebDriverWait(driver, 5).until(

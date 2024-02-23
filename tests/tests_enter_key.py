@@ -69,15 +69,9 @@ def test_enter_success(navigate_to_login, render_clear_inputs):
   email_input = driver.find_element(By.ID, "email")
   email_input.send_keys(email)
 
-  # sleep for visibility
-  time.sleep(1)
-
   # inputs password into text box
   password_input = driver.find_element(By.ID, "password")
   password_input.send_keys(password)
-
-  # sleep for visibility
-  time.sleep(1)
 
   # press enter key
   password_input.send_keys(Keys.RETURN)
